@@ -1,0 +1,56 @@
+/* 共通フォント設定 */
+body {
+    font-family: 'Kiwi Maru', serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* テーブルコンテナ */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+/* テーブルスタイル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #872523;
+    color: #fff;
+    text-align: center;
+}
+
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* モバイル対応 */
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 14px;
+        padding: 10px;
+    }
+    table {
+        width: 100%;
+    }
+}
