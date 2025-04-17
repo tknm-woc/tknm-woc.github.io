@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "kiwimaru";
-    src: url("font/KiwiMaru-Regular.ttf") format("truetype");
+    src: url("font/KiwiMaru-Regular.woff2") format("woff2");
     font-display: swap;
   }
 
