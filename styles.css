@@ -6,19 +6,6 @@
     font-display: swap;
   }
 
-    .instagram-media a {
-    background-color: #872523 !important;
-    }
-        
-    @media (max-width: 600px) {
-    .instagram-media {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        overflow-x: hidden;
-    }
-    }
-
 body {
     font-family: 'kiwimaru', serif;
     background-color: #f5f5f5;
@@ -327,3 +314,16 @@ footer {
     -ms-transform: rotateX(360deg);
     transform: rotateX(360deg);
   }
+
+.instagram-media a {
+    background-color: #872523 !important;
+}
+        
+@media (max-width: 600px) {
+.instagram-media {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    overflow-x: hidden;
+}
+}
