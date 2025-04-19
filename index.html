@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
     <!-- ファビコン -->
     <link rel="icon" href="img/tknm_logo.png" type="image/x-icon">
-    <!-- jquery読み込み -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <style>
           .instagram-media a {
@@ -201,32 +199,35 @@
         </div>
         
         <p>&copy; 2025 常滑高校吹奏楽部 コンテンツの無断転載を禁止します。</p>
-        <p>〒479-0003 愛知県常滑市金山四井池10</p>
+        <p>&#12306;479-0003 愛知県常滑市金山四井池10</p>
         
     </footer>
 
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+            document.addEventListener("DOMContentLoaded", () => {
             const hamburger = document.querySelector(".hamburger");
             const navLinks = document.querySelector(".nav-links");
-
+        
             hamburger.addEventListener("click", () => {
                 navLinks.classList.toggle("active");
             });
-        });
-
-        $(document).ready(function(){
-            $('a[href^=#]').click(function(){
-                var speed = 500;
-                var href= $(this).attr("href");
-                var target = $(href == "#" || href == "" ? 'html' : href);
-                var position = target.offset().top;
-                $("html, body").animate({scrollTop:position}, speed, "swing");
-                return false;
+        
+            // ページ内リンクのスムーススクロール（バニラJS）
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute("href");
+                    const target = document.querySelector(targetId);
+        
+                    if (target) {
+                        target.scrollIntoView({ behavior: "smooth" });
+                    }
+                });
             });
         });
+
     </script>
     
 
