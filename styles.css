@@ -39,6 +39,29 @@ nav {
     margin-right: 10px;
 }
 
+img[src="img/tknm_logo.png"] {
+  display: block; /* ← 中央回転の安定化に効果的 */
+  margin: 0 auto;  /* 任意：中央寄せ */
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform-origin: center center; /* ← 回転軸を中央に固定 */
+}
+
+img[src="img/tknm_logo.png"]:hover {
+  animation: zoomRotate 0.6s forwards;
+}
+
+@keyframes zoomRotate {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+    
+  }
+  100% {
+    transform: scale(1.2) rotate(360deg);
+  }
+}
+
+
 .hamburger {
     display: none;
     flex-direction: column;
