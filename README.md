@@ -6,4 +6,4 @@
 <br>cssファイルの編集方法については以下の連絡先まで連絡するか、自身でインターネットなどで調べてやってください。</p>
 <h2>連絡先</h2>
 <p>このホームページの編集時にどうすればよいか困ったときはお気軽に以下までご連絡ください。</p>
-<a href="mailto:sk0528jp@gmail.com" target="_blank">sk0528jp@gmail.com</a>
+<a href="mailto:sk0528jp@gmail.com?subject=常滑高校吹奏楽部%2CHPサポート要請" target="_blank">sk0528jp@gmail.com</a>
