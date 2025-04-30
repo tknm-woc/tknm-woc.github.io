@@ -1,1 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ファイルダウンロードページ</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'KiwiMaru';
+      src: url('https://tknm-woc.github.io/font/KiwiMaru-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
+    body {
+      font-family: 'KiwiMaru', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #872523;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      border-bottom: 2px solid #872523;
+      padding-bottom: 0.25rem;
+      margin-top: 2rem;
+      color: #872523;
+    }
+
+    table.file-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table.file-table th, table.file-table td {
+      border: 1px solid #872523;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    table.file-table th {
+      background-color: #872523;
+      color: white;
+    }
+
+    .download-btn {
+      background-color: #872523;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.05);
+      background-color: #a32e2c;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .snippet-box {
+      background: #fff3f3;
+      border: 1px dashed #872523;
+      padding: 1rem;
+      margin: 2rem 0;
+    }
+
+    .snippet-box code {
+      display: block;
+      white-space: pre;
+      font-family: monospace;
+    }
+
+    .snippet-controls {
+      margin-top: 0.5rem;
+    }
+
+    .copy-btn {
+      background-color: #872523;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      transform: scale(1.05);
+      background-color: #a32e2c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ファイルダウンロードページ</h1>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>運用ガイド</h2>
+      <div class="snippet-box">
+        <label for="presetSelect"><strong>カテゴリ別テンプレ：</strong></label>
+        <select id="presetSelect">
+          <option value="">-- 選択してください --</option>
+          <option value="audio">音声ファイル</option>
+          <option value="docs">ドキュメントファイル</option>
+          <option value="images">画像ファイル</option>
+          <option value="videos">映像ファイル</option>
+          <option value="scores">譜面</option>
+        </select>
+        <div class="snippet-controls">
+          <button class="copy-btn" onclick="copySnippet()">スニペットをコピー</button>
+        </div>
+        <code id="snippetTarget">&lt;tr&gt;
+  &lt;td&gt;ファイル名.ext&lt;/td&gt;
+  &lt;td&gt;&lt;button class=&quot;download-btn&quot; onclick=&quot;openModal('ファイル名.ext', 'files/ファイル名.ext', 'プレビュー形式')&quot;&gt;プレビュー＆DL&lt;/button&gt;&lt;/td&gt;
+&lt;/tr&gt;</code>
+        <p>※ カテゴリごとに <code>fileList</code> 配列に追記してください。</p>
+      </div>
+
+      <div id="fileTables"></div>
+    </section>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">×</span>
+      <div id="modalDetails"></div>
+    </div>
+  </div>
+
+  <script>
+    const fileList = [
+      { name: 'sample-audio.mp3', url: 'files/audio.mp3', type: 'audio', label: '音声ファイル' },
+      { name: 'sample-document.pdf', url: 'files/document.pdf', type: 'docs', label: 'ドキュメントファイル' },
+      { name: 'sample-image.jpg', url: 'files/image.jpg', type: 'images', label: '画像ファイル' },
+      { name: 'sample-video.mp4', url: 'files/video.mp4', type: 'videos', label: '映像ファイル' },
+      { name: 'sample-score.pdf', url: 'files/score.pdf', type: 'scores', label: '譜面' }
+    ];
+
+    const previewMap = {
+      audio: 'audio',
+      docs: 'iframe',
+      images: 'img',
+      videos: 'video',
+      scores: 'iframe'
+    };
+
+    function openModal(name, url, type) {
+      let previewHtml = '';
+      switch (type) {
+        case 'img':
+          previewHtml = `<img src="${url}" style="max-width: 100%; height: auto;" alt="${name}">`;
+          break;
+        case 'video':
+          previewHtml = `<video controls style="max-width: 100%"><source src="${url}" type="video/mp4"></video>`;
+          break;
+        case 'audio':
+          previewHtml = `<audio controls style="width: 100%"><source src="${url}" type="audio/mpeg"></audio>`;
+          break;
+        case 'iframe':
+          previewHtml = `<iframe src="${url}" style="width: 100%; height: 400px;" frameborder="0"></iframe>`;
+          break;
+        default:
+          previewHtml = '';
+      }
+
+      const modalDetails = document.getElementById('modalDetails');
+      modalDetails.innerHTML = `
+        <h3>${name}</h3>
+        ${previewHtml}
+        <a href="${url}" class="download-btn" download>ダウンロード</a>
+      `;
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function copySnippet() {
+      const select = document.getElementById('presetSelect').value;
+      const previewType = previewMap[select] || 'iframe';
+      const snippet = `<tr>
+  <td>ファイル名.ext</td>
+  <td><button class=\"download-btn\" onclick=\"openModal('ファイル名.ext', 'files/ファイル名.ext', '${previewType}')\">プレビュー＆DL</button></td>
+</tr>`;
+      const temp = document.createElement('textarea');
+      temp.value = snippet;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      document.getElementById('snippetTarget').textContent = snippet;
+    }
+
+    const container = document.getElementById('fileTables');
+    const grouped = {};
+    fileList.forEach(file => {
+      if (!grouped[file.type]) grouped[file.type] = { label: file.label, files: [] };
+      grouped[file.type].files.push(file);
+    });
+
+    Object.entries(grouped).forEach(([key, group]) => {
+      const section = document.createElement('section');
+      const h2 = document.createElement('h2');
+      h2.textContent = group.label;
+      const table = document.createElement('table');
+      table.className = 'file-table';
+      const thead = document.createElement('thead');
+      thead.innerHTML = '<tr><th>ファイル名</th><th>操作</th></tr>';
+      const tbody = document.createElement('tbody');
+      group.files.forEach(file => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${file.name}</td>
+          <td><button class="download-btn" onclick="openModal('${file.name}', '${file.url}', '${previewMap[file.type]}')">プレビュー＆DL</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      section.appendChild(h2);
+      section.appendChild(table);
+      container.appendChild(section);
+    });
+  </script>
+</body>
+</html>
