@@ -1,66 +1,73 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ファイルダウンロードページ</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="icon" href="https://tknm-woc.github.io/img/tknm_logo.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="icon" href="https://tknm-woc.github.io/img/tknm_logo.png" type="image/x-icon"/>
   <style>
     @font-face {
       font-family: 'KiwiMaru';
       src: url('https://tknm-woc.github.io/font/KiwiMaru-Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
     }
-
     body {
       font-family: 'KiwiMaru', sans-serif;
       margin: 0;
       background-color: #f9f9f9;
       color: #333;
     }
-
     header {
       background-color: #872523;
       color: white;
       padding: 1rem 2rem;
       text-align: center;
     }
-
     .container {
       max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
-
     h2 {
       border-bottom: 2px solid #872523;
       padding-bottom: 0.25rem;
       margin-top: 2rem;
       color: #872523;
     }
-
+    .category-heading i {
+      margin-right: 0.5rem;
+      color: #872523;
+    }
     table.file-table {
       width: 100%;
+      table-layout: auto;
       border-collapse: separate;
       border-spacing: 0;
       margin-bottom: 2rem;
       border-radius: 8px;
       overflow: hidden;
+      word-break: break-word;
     }
-
+    table.file-table th:first-child,
+    table.file-table td:first-child {
+      width: 70%;
+      max-width: 70%;
+    }
+    table.file-table th:last-child,
+    table.file-table td:last-child {
+      width: 30%;
+      max-width: 30%;
+      white-space: nowrap;
+    }
     table.file-table th, table.file-table td {
       border: 1px solid #872523;
       padding: 0.5rem;
       text-align: left;
     }
-
     table.file-table th {
       background-color: #872523;
       color: white;
     }
-
     .download-btn {
       background-color: #872523;
       color: white;
@@ -70,73 +77,61 @@
       text-decoration: none;
       transition: all 0.2s ease-in-out;
     }
-
     .download-btn:hover {
       transform: scale(1.05);
       background-color: #a32e2c;
     }
-
+    .download-btn i {
+      vertical-align: middle;
+      margin-right: 4px;
+    }
     .modal {
       display: none;
       position: fixed;
       z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
       background-color: rgba(0, 0, 0, 0.6);
       justify-content: center;
       align-items: center;
+      overflow-y: auto;
     }
-
     .modal-content {
       background-color: white;
-      padding: 2rem;
+      padding: 1rem;
       border-radius: 8px;
-      max-width: 600px;
-      width: 90%;
+      max-width: 90%;
+      width: 600px;
       position: relative;
       text-align: center;
+      margin: 2rem;
     }
-
     .modal-close {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 10px; right: 10px;
       cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .snippet-box {
-      background: #fff3f3;
-      border: 1px dashed #872523;
-      padding: 1rem;
-      margin: 2rem 0;
-    }
-
-    .snippet-box code {
-      display: block;
-      white-space: pre;
-      font-family: monospace;
-    }
-
-    .snippet-controls {
-      margin-top: 0.5rem;
-    }
-
-    .copy-btn {
-      background-color: #872523;
-      color: white;
+      font-size: 1.5rem;
+      color: #872523;
+      background: none;
       border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
     }
-
-    .copy-btn:hover {
-      transform: scale(1.05);
-      background-color: #a32e2c;
+    .modal-content img, .modal-content video {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+    .fullscreen-btn {
+      margin-top: 0.5rem;
+      background: #872523;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .material-icons {
+      vertical-align: middle;
+      color: #872523;
     }
   </style>
 </head>
@@ -144,48 +139,24 @@
   <header>
     <h1>ファイルダウンロードページ</h1>
   </header>
-
   <main class="container">
-    <section>
-      <h2>運用ガイド</h2>
-      <div class="snippet-box">
-        <label for="presetSelect"><strong>カテゴリ別テンプレ：</strong></label>
-        <select id="presetSelect">
-          <option value="">-- 選択してください --</option>
-          <option value="audio">音声ファイル</option>
-          <option value="docs">ドキュメントファイル</option>
-          <option value="images">画像ファイル</option>
-          <option value="videos">映像ファイル</option>
-          <option value="scores">譜面</option>
-        </select>
-        <div class="snippet-controls">
-          <button class="copy-btn" onclick="copySnippet()">スニペットをコピー</button>
-        </div>
-        <code id="snippetTarget">&lt;tr&gt;
-  &lt;td&gt;ファイル名.ext&lt;/td&gt;
-  &lt;td&gt;&lt;button class=&quot;download-btn&quot; onclick=&quot;openModal('ファイル名.ext', 'files/ファイル名.ext', 'プレビュー形式')&quot;&gt;プレビュー＆DL&lt;/button&gt;&lt;/td&gt;
-&lt;/tr&gt;</code>
-        <p>※ カテゴリごとに <code>fileList</code> 配列に追記してください。</p>
-      </div>
-
-      <div id="fileTables"></div>
-    </section>
+    <div id="fileTables"></div>
   </main>
 
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="modal-close" onclick="closeModal()">×</span>
+  <div class="modal" id="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
       <div id="modalDetails"></div>
     </div>
   </div>
 
   <script>
     const fileList = [
-      { name: 'sample-audio.mp3', url: 'files/audio.mp3', type: 'audio', label: '音声ファイル' },
-      { name: 'sample-document.pdf', url: 'files/document.pdf', type: 'docs', label: 'ドキュメントファイル' },
-      { name: '常滑高校吹奏楽部 ロゴ画像', url: 'https://tknm-woc.github.io/img/tknm_logo.png', type: 'images', label: '画像ファイル' },
-      { name: 'sample-video.mp4', url: 'files/video.mp4', type: 'videos', label: '映像ファイル' },
-      { name: 'sample-score.pdf', url: 'files/score.pdf', type: 'scores', label: '譜面' }
+      { name: 'sample-audio.mp3', url: 'files/audio.mp3', type: 'audio', label: '音声ファイル', icon: 'audiotrack' },
+      { name: 'sample-document.pdf', url: 'files/document.pdf', type: 'docs', label: 'ドキュメントファイル', icon: 'description' },
+      { name: 'ロゴ画像.png', url: 'https://tknm-woc.github.io/img/tknm_logo.png', type: 'images', label: '画像ファイル', icon: 'image' },
+      { name: 'sample-video.mp4', url: 'files/video.mp4', type: 'videos', label: '映像ファイル', icon: 'movie' },
+      { name: 'sample-score.pdf', url: 'files/score.pdf', type: 'scores', label: '譜面', icon: 'music_note' }
     ];
 
     const previewMap = {
@@ -197,64 +168,41 @@
     };
 
     function openModal(name, url, type) {
-      let previewHtml = '';
-      switch (type) {
-        case 'img':
-          previewHtml = `<img src="${url}" style="max-width: 100%; height: auto;" alt="${name}">`;
-          break;
-        case 'video':
-          previewHtml = `<video controls style="max-width: 100%"><source src="${url}" type="video/mp4"></video>`;
-          break;
-        case 'audio':
-          previewHtml = `<audio controls style="width: 100%"><source src="${url}" type="audio/mpeg"></audio>`;
-          break;
-        case 'iframe':
-          previewHtml = `<iframe src="${url}" style="width: 100%; height: 400px;" frameborder="0"></iframe>`;
-          break;
-        default:
-          previewHtml = '';
+      const label = fileList.find(f => f.name === name)?.label || '';
+      const icon = fileList.find(f => f.name === name)?.icon || '';
+      let previewHtml = `<h3><i class="material-icons">${icon}</i> ${name}</h3>`;
+      if (type === 'img') {
+        previewHtml += `<img src="${url}" alt="${name}"><br>`;
+      } else if (type === 'video') {
+        previewHtml += `<video controls><source src="${url}" type="video/mp4"></video><br>`;
+      } else if (type === 'audio') {
+        previewHtml += `<audio controls style="width:100%"><source src="${url}" type="audio/mpeg"></audio><br>`;
+      } else if (type === 'iframe') {
+        previewHtml += `<iframe src="${url}" style="width:100%; height:400px;" frameborder="0"></iframe><br>`;
       }
-
-      const modalDetails = document.getElementById('modalDetails');
-      modalDetails.innerHTML = `
-        <h3>${name}</h3>
-        ${previewHtml}
-        <a href="${url}" class="download-btn" download>ダウンロード</a>
-      `;
+      previewHtml += `<a href="${url}" class="download-btn" download><i class="material-icons">download</i>ダウンロード</a>`;
+      document.getElementById('modalDetails').innerHTML = previewHtml;
       document.getElementById('modal').style.display = 'flex';
     }
 
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
-
-    function copySnippet() {
-      const select = document.getElementById('presetSelect').value;
-      const previewType = previewMap[select] || 'iframe';
-      const snippet = `<tr>
-  <td>ファイル名.ext</td>
-  <td><button class=\"download-btn\" onclick=\"openModal('ファイル名.ext', 'files/ファイル名.ext', '${previewType}')\">プレビュー＆DL</button></td>
-</tr>`;
-      const temp = document.createElement('textarea');
-      temp.value = snippet;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      document.body.removeChild(temp);
-      document.getElementById('snippetTarget').textContent = snippet;
+    function closeModal(event) {
+      if (!event || event.target === document.getElementById('modal')) {
+        document.getElementById('modal').style.display = 'none';
+      }
     }
 
     const container = document.getElementById('fileTables');
     const grouped = {};
     fileList.forEach(file => {
-      if (!grouped[file.type]) grouped[file.type] = { label: file.label, files: [] };
+      if (!grouped[file.type]) grouped[file.type] = { label: file.label, icon: file.icon, files: [] };
       grouped[file.type].files.push(file);
     });
 
-    Object.entries(grouped).forEach(([key, group]) => {
+    Object.entries(grouped).forEach(([type, group]) => {
       const section = document.createElement('section');
       const h2 = document.createElement('h2');
-      h2.textContent = group.label;
+      h2.innerHTML = `<i class="material-icons">${group.icon}</i>${group.label}`;
+      h2.className = 'category-heading';
       const table = document.createElement('table');
       table.className = 'file-table';
       const thead = document.createElement('thead');
@@ -263,9 +211,10 @@
       group.files.forEach(file => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${file.name}</td>
-          <td><button class="download-btn" onclick="openModal('${file.name}', '${file.url}', '${previewMap[file.type]}')">プレビュー＆DL</button></td>
-        `;
+          <td><i class="material-icons" title="${file.label}">${file.icon}</i>${file.name}</td>
+          <td><button class="download-btn" onclick="openModal('${file.name}', '${file.url}', '${previewMap[file.type]}')">
+            <i class="material-icons">visibility</i>プレビュー＆DL
+          </button></td>`;
         tbody.appendChild(tr);
       });
       table.appendChild(thead);
