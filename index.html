@@ -229,8 +229,9 @@
 
         window.addEventListener('load', () => {
         const frame = document.getElementById('eventsFrame');
-        frame.contentWindow.location.reload();
-      });
+        frame.src = frame.src.split('?')[0] + '?t=' + new Date().getTime();
+    });
+
     </script>
     
 
