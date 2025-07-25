@@ -134,13 +134,13 @@ section {
     padding: 40px 20px;
 }
 
-.contact-buttons {
+.buttons {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
 }
 
-.contact-button {
+.button {
     display: inline-block;
     background-color: #872523;
     color: #fff;
@@ -151,7 +151,7 @@ section {
     text-decoration: none;
 }
 
-.contact-button:hover {
+.button:hover {
     background-color: #a9382b;
     transform: scale(1.1);
 }
