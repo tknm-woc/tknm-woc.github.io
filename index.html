@@ -71,7 +71,7 @@
 
     <section id="events">
         <h2>イベントスケジュール</h2>
-        <iframe src="events.html" style="width: 100%; border: none; height: 300px;" title="イベントスケジュール"></iframe>
+        <iframe src="events.html" style="width: 100%; border: none; height: 300px;" title="イベントスケジュール" id="eventsFrame"></iframe>
     </section>
 
     <section id="record">
@@ -227,6 +227,10 @@
             });
         });
 
+        window.addEventListener('load', () => {
+        const frame = document.getElementById('eventsFrame');
+        frame.contentWindow.location.reload();
+      });
     </script>
     
 
