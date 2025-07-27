@@ -2,16 +2,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const hamburger = document.querySelector(".hamburger");
     const navLinks = document.querySelector(".nav-links");
 
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navLinks.classList.toggle("active");
+    // メニューを開閉する関数
+    const toggleMenu = () => {
+        const isActive = navLinks.classList.contains("active");
+
+        if (isActive) {
+            navLinks.classList.remove("active");
+            navLinks.classList.add("animating-out");
+
+            // アニメーション終了後に非表示
+            navLinks.addEventListener("animationend", () => {
+                navLinks.classList.remove("animating-out");
+            }, { once: true });
+
+            hamburger.classList.remove("active");
+        } else {
+            navLinks.classList.add("active");
+            hamburger.classList.add("active");
+        }
+    };
+
+    hamburger.addEventListener("click", (e) => {
+        e.stopPropagation(); // バブリング防止
+        toggleMenu();
     });
 
-    // ハンバーガーメニュー外をクリックした場合に閉じる
+    // 外側クリックで閉じる
     document.addEventListener("click", (e) => {
-        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-            hamburger.classList.remove("active");
-            navLinks.classList.remove("active");
+        const isMenuOpen = navLinks.classList.contains("active");
+        if (isMenuOpen && !hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+            toggleMenu();
         }
     });
 
@@ -21,9 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const targetId = this.getAttribute("href");
             const target = document.querySelector(targetId);
-
             if (target) {
                 target.scrollIntoView({ behavior: "smooth" });
+            }
+
+            // スクロール時にメニューが開いていれば閉じる
+            if (navLinks.classList.contains("active")) {
+                toggleMenu();
             }
         });
     });
