@@ -328,9 +328,19 @@ footer {
 }
 }
 
-/* ハンバーガーアニメーション */
+/* ハンバーガー本体のアニメーション用ベース */
+.hamburger div {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px auto;
+    transition: all 0.3s ease;
+    transform-origin: center center; /* 中央を回転軸に */
+}
+
+/* ハンバーガー：開いた状態でバツ印に（ズレ修正済） */
 .hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(0, 0);
 }
 
 .hamburger.active div:nth-child(2) {
@@ -338,13 +348,20 @@ footer {
 }
 
 .hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(0, 0);
 }
 
+/* メニュー：開くアニメーション */
 .nav-links.active {
     animation: fadeIn 0.3s ease forwards;
 }
 
+/* メニュー：閉じるアニメーション */
+.nav-links.animating-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+/* フェードイン */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -356,3 +373,14 @@ footer {
     }
 }
 
+/* フェードアウト（追加） */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
