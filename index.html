@@ -202,46 +202,6 @@
         <p>&#12306;479-0003 愛知県常滑市金山四井池10</p>
         
     </footer>
-
-
-
-    <script>
-            document.addEventListener("DOMContentLoaded", () => {
-            const hamburger = document.querySelector(".hamburger");
-            const navLinks = document.querySelector(".nav-links");
-        
-            hamburger.addEventListener("click", () => {
-                navLinks.classList.toggle("active");
-            });
-        
-            // ページ内リンクのスムーススクロール（バニラJS）
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute("href");
-                    const target = document.querySelector(targetId);
-        
-                    if (target) {
-                        target.scrollIntoView({ behavior: "smooth" });
-                    }
-                });
-            });
-        });
-
-        window.addEventListener('load', () => {
-        const frame = document.getElementById('eventsFrame');
-        frame.src = frame.src.split('?')[0] + '?t=' + new Date().getTime();
-    });
-
-        // 60分（＝3600000ミリ秒）後に処理を実行
-        setTimeout(() => {
-        alert("最後にページを読み込んでから1時間が経過しました。最新情報を表示するために、再読み込みを推奨します。");
-        }, 60 * 60 * 1000);
-
-    </script>
-    
-
-
-
+    <script src="script.js" defer></script>
 </body>
 </html>
