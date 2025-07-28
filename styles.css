@@ -83,8 +83,17 @@ nav {
 
 
 .nav-links {
-    display: flex;
-    gap: 15px;
+    display: flex; /* 常にflex */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #872523;
+    width: 100%;
+    padding: 10px 0;
+    gap: 10px;
+    z-index: 1000;
+
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease;
@@ -98,8 +107,8 @@ nav {
 .nav-links.animating-out {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease;
 }
+
 
 
 .nav-links a {
