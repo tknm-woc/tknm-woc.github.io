@@ -76,11 +76,3 @@ window.addEventListener("load", () => {
 setTimeout(() => {
     alert("最後にページを読み込んでから1時間が経過しました。最新情報を表示するために、再読み込みを推奨します。");
 }, 60 * 60 * 1000);
-
-
-$(function(){
-  $('.btn-trigger').on('click', function() {
-    $(this).toggleClass('active');
-    return false;
-  });
-});
