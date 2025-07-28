@@ -76,7 +76,7 @@ nav {
 .nav-links {
     display: flex;
     gap: 15px;
-    ransition: opacity 0.3s ease, visibility 0s linear 0.3s; /* visibilityには遅延を設定 */
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* visibilityには遅延を設定 */
 }
 
 .nav-links.active {
