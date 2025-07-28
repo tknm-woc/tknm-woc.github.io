@@ -83,6 +83,7 @@ nav {
         opacity 0.3s ease, 
         transform 0.3s ease,
         visibility 0s linear 0.3s;
+    border-bottom: 4px solid #888888;
 }
 
 .nav-links.active {
@@ -90,7 +91,6 @@ nav {
     visibility: visible;
     transform: translateY(0);
     transition-delay: 0s, 0s, 0s; /* visibility遅延なしに */
-    border-bottom: 4px solid #888888;
 }
 
 .nav-links.animating-out {
