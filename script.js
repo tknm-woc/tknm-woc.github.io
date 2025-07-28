@@ -2,17 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const hamburger = document.querySelector(".hamburger");
     const navLinks = document.querySelector(".nav-links");
 
-    // メニューを開閉する関数
     const toggleMenu = () => {
-        const isActive = navLinks.classList.contains("active");
-
-        if (isActive) {
+        if (navLinks.classList.contains("active")) {
             navLinks.classList.remove("active");
             navLinks.classList.add("animating-out");
             hamburger.classList.remove("active");
             setTimeout(() => {
                 navLinks.classList.remove("animating-out");
-            }, 300);
+            }, 400); // CSSのmax-heightと同じ秒数
         } else {
             navLinks.classList.remove("animating-out");
             navLinks.classList.add("active");
@@ -20,10 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    hamburger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleMenu();
-    });
+    hamburger.addEventListener("click", toggleMenu);
 
     // 外側クリックで閉じる
     document.addEventListener("click", (e) => {
