@@ -77,26 +77,12 @@ nav {
     gap: 15px;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
-    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
 }
 
     .nav-links.active {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
-        pointer-events: auto;
     }
-}
-
-.nav-links.animating-out {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: 
-        opacity 0.3s ease, 
-        transform 0.3s ease,
-        visibility 0s linear 0.3s;
 }
 
 .nav-links a {
