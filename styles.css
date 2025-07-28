@@ -81,24 +81,6 @@ nav {
     transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
 }
 
-@media (max-width: 768px) {
-    .nav-links {
-        display: flex;               /* これ重要！ */
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        background-color: #872523;
-        width: 100%;
-        padding: 10px 0;
-        gap: 10px;
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-20px);
-        pointer-events: none;
-    }
-
     .nav-links.active {
         opacity: 1;
         visibility: visible;
