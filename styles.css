@@ -79,10 +79,9 @@ nav {
     visibility: visible;
 }
 
-    .nav-links.active {
-        opacity: 1;
-        visibility: visible;
-    }
+.nav-links.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 .nav-links a {
