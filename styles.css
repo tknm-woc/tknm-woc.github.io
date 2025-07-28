@@ -43,6 +43,7 @@ nav {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 .hamburger div {
