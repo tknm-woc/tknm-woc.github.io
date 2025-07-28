@@ -78,19 +78,18 @@ nav {
     gap: 15px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-20px);
-    transition: 
-        opacity 0.3s ease, 
-        transform 0.3s ease,
-        visibility 0s linear 0.3s;
-    border-bottom: 4px solid #888888;
 }
 
 .nav-links.active {
-    opacity: 1;
     visibility: visible;
-    transform: translateY(0);
-    transition-delay: 0s, 0s, 0s; /* visibility遅延なしに */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
 }
 
 .nav-links.animating-out {
