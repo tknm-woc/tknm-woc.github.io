@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "kiwimaru";
-    src: url("font/KiwiMaru-Regular.woff2") format("woff2");
+    src: url("../font/KiwiMaru-Regular.woff2") format("woff2");
     font-display: swap;
   }
 
@@ -128,7 +128,7 @@ nav {
 header {
     text-align: center;
     padding: 128px 20px;
-    background: url('img/header.avif') no-repeat center/cover;
+    background: url('../img/header.avif') no-repeat center/cover;
     color: #fff;
 }
 
@@ -256,7 +256,6 @@ footer {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    overflow: hidden; /* はみ出し防止 */
 }
 
 .part-card:hover {
