@@ -88,7 +88,22 @@ nav {
 .nav-links {
     display: flex;
     gap: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
 }
+
+.nav-links.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-links.animating-out {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
 
 .nav-links a {
     color: #fff;
