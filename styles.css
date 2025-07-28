@@ -77,11 +77,37 @@ nav {
     gap: 15px;
     opacity: 1;
     visibility: visible;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 500px; /* メニュー最大の高さ（要調整） */
+    overflow: hidden;
 }
-
-.nav-links.active {
-    opacity: 1;
-    visibility: visible;
+@media (max-width: 768px) {
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #872523;
+        width: 100%;
+        padding: 10px 0;
+        gap: 10px;
+        z-index: 1000;
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+    .nav-links.active {
+        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
+    }
+    .nav-links.animating-out {
+        opacity: 0;
+        max-height: 0;
+        visibility: hidden;
+    }
 }
 
 .nav-links a {
