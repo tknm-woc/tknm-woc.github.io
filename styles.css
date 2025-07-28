@@ -39,19 +39,16 @@ nav {
     margin-right: 10px;
 }
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px auto;
+    transition: all 0.3s ease;
+    transform-origin: center center;
+    border-radius: 16px; /* 必要なら残す */
 }
 
-.hamburger div {
-    width: 25px;
-    height: 3px;
-    border-radius: 16px;
-    background-color: #fff;
-    margin: 4px 0;
-}
 
 .nav-links {
     display: flex;
@@ -328,59 +325,15 @@ footer {
 }
 }
 
-/* ハンバーガー本体のアニメーション用ベース */
-.hamburger div {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    margin: 5px auto;
-    transition: all 0.3s ease;
-    transform-origin: center center; /* 中央を回転軸に */
+.hamburger.active {
+  transform: rotate(360deg);
 }
-
-/* ハンバーガー：開いた状態でバツ印に（ズレ修正済） */
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(0, 0);
+.hamburger.active span:nth-of-type(1) {
+  transform: translateY(20px) rotate(-45deg);
 }
-
-.hamburger.active div:nth-child(2) {
-    opacity: 0;
+.hamburger.active span:nth-of-type(2) {
+  transform: translateY(0) rotate(45deg);
 }
-
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(0, 0);
-}
-
-/* メニュー：開くアニメーション */
-.nav-links.active {
-    animation: fadeIn 0.3s ease forwards;
-}
-
-/* メニュー：閉じるアニメーション */
-.nav-links.animating-out {
-    animation: fadeOut 0.3s ease forwards;
-}
-
-/* フェードイン */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* フェードアウト（追加） */
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
+.hamburger.active span:nth-of-type(3) {
+  opacity: 0;
 }
