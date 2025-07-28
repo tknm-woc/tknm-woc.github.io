@@ -43,15 +43,14 @@ nav {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    margin-right: 20px;
 }
 
 .hamburger div {
-    width: 25px;
+    width: 32px;
     height: 3px;
     border-radius: 16px;
     background-color: #fff;
-    margin: 4px 0;
+    margin: 2px 0;
 
     /* アニメーション有効化 */
     transition: transform 0.3s ease, opacity 0.3s ease;
