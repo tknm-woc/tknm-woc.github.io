@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }, { once: true });
 
             hamburger.classList.remove("active");
+            hamburger.classList.add("animating-out");
+            
+            hamburger.addEventListener("transitionend", () => {
+                hamburger.classList.remove("animating-out");
+            }, { once: true });
+
         } else {
             navLinks.classList.add("active");
             hamburger.classList.add("active");
