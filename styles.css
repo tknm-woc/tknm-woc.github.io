@@ -80,36 +80,25 @@ nav {
     transform: scale(1);
 }
 
-
-
 .nav-links {
-    display: flex; /* 常にflex */
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    background-color: #872523;
-    width: 100%;
-    padding: 10px 0;
-    gap: 10px;
-    z-index: 1000;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
+    display: flex;
+    gap: 15px;
+    ransition: opacity 0.3s ease, visibility 0s linear 0.3s; /* visibilityには遅延を設定 */
 }
 
 .nav-links.active {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
+  /* active時にはvisibilityの遅延をなくす */
+  transition: opacity 0.3s ease, visibility 0s linear;
 }
 
 .nav-links.animating-out {
-    opacity: 0;
-    visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
+  /* animating-out時にはvisibilityの遅延を0.3s（opacityと同じ時間）に設定 */
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
-
-
 
 .nav-links a {
     color: #fff;
