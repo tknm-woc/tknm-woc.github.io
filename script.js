@@ -72,6 +72,18 @@ window.addEventListener("load", () => {
     }
 });
 
+const navLinks = document.querySelector('.nav-links');
+const hamburger = document.querySelector('.hamburger');
+
+hamburger.addEventListener('click', () => {
+  if(navLinks.classList.contains('active')) {
+    navLinks.classList.remove('active');
+    navLinks.classList.add('animating-out');
+    setTimeout(() => navLinks.classList.remove('animating-out'), 300); // 0.3s後にクラス削除
+  } else {
+    navLinks.classList.add('active');
+  }
+});
 // 60分後にアラート通知
 setTimeout(() => {
     alert("最後にページを読み込んでから1時間が経過しました。最新情報を表示するために、再読み込みを推奨します。");
