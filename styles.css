@@ -76,19 +76,30 @@ nav {
 .nav-links {
     display: flex;
     gap: 15px;
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* visibilityには遅延を設定 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: 
+        opacity 0.3s ease, 
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
 }
 
 .nav-links.active {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s, 0s, 0s; /* visibility遅延なしに */
 }
 
-
 .nav-links.animating-out {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: 
+        opacity 0.3s ease, 
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
 }
 
 .nav-links a {
